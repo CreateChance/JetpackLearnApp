@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="deploymentTargetDropDown">
+    <value>
+      <entry key="app">
+        <State />
+      </entry>
+      <entry key="databinding">
+        <State />
+      </entry>
+      <entry key="databinding2">
+        <State />
+      </entry>
+      <entry key="databinding3">
+        <State />
+      </entry>
+      <entry key="databinding4">
+        <State />
+      </entry>
+      <entry key="databinding5">
+        <State />
+      </entry>
+      <entry key="databinding6">
+        <State />
+      </entry>
+      <entry key="hilt">
+        <State />
+      </entry>
+      <entry key="lifecycle">
+        <State />
+      </entry>
+      <entry key="navigation">
+        <State />
+      </entry>
+      <entry key="navigation2">
+        <State />
+      </entry>
+      <entry key="navigation3">
+        <State />
+      </entry>
+      <entry key="paging">
+        <State />
+      </entry>
+      <entry key="paging2">
+        <State />
+      </entry>
+      <entry key="paging3">
+        <State />
+      </entry>
+      <entry key="paging4">
+        <State />
+      </entry>
+      <entry key="room">
+        <State />
+      </entry>
+      <entry key="room2">
+        <State />
+      </entry>
+      <entry key="room3">
+        <State />
+      </entry>
+      <entry key="workmanager">
+        <State />
+      </entry>
+      <entry key="workmanager2">
+        <State />
+      </entry>
+    </value>
+  </component>
+</project>

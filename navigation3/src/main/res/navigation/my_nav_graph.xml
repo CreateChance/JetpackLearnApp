@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.navigation3.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.navigation3.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+        <action
+            android:id="@+id/action_detailFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="user_name"
+            android:defaultValue="unknown"
+            app:argType="string" />
+        <argument
+            android:name="user_age"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <argument
+            android:name="where"
+            android:defaultValue="unknown"
+            app:argType="string" />
+        <!-- 可以通过发送命令来测试参数传递：adb shell am start -a android.intent.action.VIEW -d "https://www.baidu.com/Tom/99/web" -->
+        <deepLink app:uri="www.baidu.com/{user_name}/{user_age}/{where}" />
+    </fragment>
+</navigation>

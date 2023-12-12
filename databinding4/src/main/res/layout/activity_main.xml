@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="userViewModel"
+            type="com.example.databinding4.UserViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <!-- 如下 2 个 edittext 都双向绑定了数据，因此当某个数据发生变化，两个都会发生变化 -->
+        <!-- 注意，双向绑定需要 @={DATA} 来绑定，比单向绑定多一个 = -->
+        <EditText
+            android:id="@+id/edittext1"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:inputType="text"
+            android:text="@={userViewModel.userName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.396"
+            tools:text="Jack" />
+
+        <EditText
+            android:id="@+id/edittext2"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:inputType="text"
+            android:text="@={userViewModel.userName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.597"
+            tools:text="Jack" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
