@@ -5,6 +5,9 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="coroutine">
+        <State />
+      </entry>
       <entry key="databinding">
         <State />
       </entry>
@@ -48,6 +51,9 @@
         <State />
       </entry>
       <entry key="paging4">
+        <State />
+      </entry>
+      <entry key="paging5">
         <State />
       </entry>
       <entry key="room">
