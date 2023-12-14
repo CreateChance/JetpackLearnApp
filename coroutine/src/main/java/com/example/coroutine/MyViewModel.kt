@@ -50,7 +50,7 @@ class MyViewModel(private val repository: MyRepository) : ViewModel() {
             tapCount++
             // 延迟 1s 后刷新界面
             delay(1_000)
-            _taps.postValue("$tapCount taps")
+            _taps.value = "$tapCount taps"
         }
     }
 

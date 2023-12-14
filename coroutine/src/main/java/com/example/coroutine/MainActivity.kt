@@ -1,7 +1,6 @@
 package com.example.coroutine
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val dataBinding =
             DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        // 这一行很关键，如果不设置 lifecycle owner，所有的 livedata databinding 将不生效。
         dataBinding.lifecycleOwner = this
         val repository = MyRepository(titleService, getTitleDatabase(applicationContext).titleDao)
         val viewModel =
@@ -23,10 +23,6 @@ class MainActivity : AppCompatActivity() {
             text?.let {
                 Snackbar.make(dataBinding.root, text, Snackbar.LENGTH_LONG).show()
             }
-        }
-
-        viewModel.taps.observe(this) {
-            Log.d("GAOCHAO", "tap 发生变化：$it")
         }
     }
 }
