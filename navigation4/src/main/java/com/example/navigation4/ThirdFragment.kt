@@ -98,6 +98,17 @@ class ThirdFragment : Fragment() {
     }
 
     fun onJump(view: View) {
-        findNavController().popBackStack(R.id.homeFragment, false)
+//        findNavController().popBackStack(R.id.homeFragment, false)
+        findNavController().navigate(
+            ThirdFragmentDirections.actionThirdFragmentToHomeFragment(),
+            NavOptions.Builder()
+                .setPopUpTo(
+                    destinationId = R.id.homeFragment,
+                    inclusive = true
+                ) // 把 homefragment 也弹出栈
+                .setEnterAnim(R.anim.slide_in_left)
+                .setExitAnim(R.anim.slide_out_left)
+                .build()
+        )
     }
 }
