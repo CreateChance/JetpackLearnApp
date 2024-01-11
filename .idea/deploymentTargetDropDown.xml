@@ -8,6 +8,9 @@
       <entry key="coroutine">
         <State />
       </entry>
+      <entry key="coroutinesnlifecycle">
+        <State />
+      </entry>
       <entry key="databinding">
         <State />
       </entry>
