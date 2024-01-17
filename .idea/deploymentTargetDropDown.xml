@@ -35,6 +35,9 @@
       <entry key="lifecycle">
         <State />
       </entry>
+      <entry key="livedata">
+        <State />
+      </entry>
       <entry key="navigation">
         <State />
       </entry>
