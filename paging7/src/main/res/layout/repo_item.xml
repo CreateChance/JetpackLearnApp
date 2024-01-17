@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="repo"
+            type="com.example.paging7.model.Repo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/tv_repo_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{repo.name}"
+            android:textColor="@color/titleColor"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Repo Name" />
+
+        <TextView
+            android:id="@+id/tv_repo_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="10"
+            android:paddingVertical="12dp"
+            android:text="@{repo.description}"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_repo_name"
+            tools:text="A collection of samples to discuss and showcase different architectural tools and patterns for Android apps." />
+
+        <TextView
+            android:id="@+id/tv_repo_lang"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="@{@string/language(repo.language)}"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_repo_desc" />
+
+        <ImageView
+            android:id="@+id/iv_repo_stars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:src="@drawable/ic_star"
+            app:layout_constraintEnd_toStartOf="@id/tv_repo_stars"
+            app:layout_constraintTop_toBottomOf="@id/tv_repo_desc" />
+
+        <TextView
+            android:id="@+id/tv_repo_stars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="@{String.valueOf(repo.stars)}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@id/iv_repo_forks"
+            app:layout_constraintTop_toBottomOf="@id/tv_repo_desc"
+            tools:text="100" />
+
+        <ImageView
+            android:id="@+id/iv_repo_forks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:src="@drawable/ic_git_branch"
+            app:layout_constraintEnd_toStartOf="@id/tv_repo_forks"
+            app:layout_constraintTop_toBottomOf="@id/tv_repo_desc" />
+
+        <TextView
+            android:id="@+id/tv_repo_forks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="@{String.valueOf(repo.forks)}"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_repo_desc"
+            tools:text="30" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
