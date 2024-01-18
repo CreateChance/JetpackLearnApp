@@ -1,8 +1,10 @@
 package com.example.paging7
 
+import android.content.Context
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.paging7.data.GithubRepository
 import com.example.paging7.data.GithubService
+import com.example.paging7.database.ReposDatabase
 import com.example.paging7.ui.GithubReposViewModelFactory
 
 /**
@@ -12,11 +14,14 @@ import com.example.paging7.ui.GithubReposViewModelFactory
  * @since 2024/1/17
  */
 object Injection {
-    private fun provideGithubRepository(): GithubRepository {
-        return GithubRepository(GithubService.create())
+    private fun provideGithubRepository(context: Context): GithubRepository {
+        return GithubRepository(GithubService.create(), ReposDatabase.getInstance(context))
     }
 
-    fun provideGithubReposViewModelFactory(owner: SavedStateRegistryOwner): GithubReposViewModelFactory {
-        return GithubReposViewModelFactory(owner, provideGithubRepository())
+    fun provideGithubReposViewModelFactory(
+        context: Context,
+        owner: SavedStateRegistryOwner
+    ): GithubReposViewModelFactory {
+        return GithubReposViewModelFactory(owner, provideGithubRepository(context))
     }
 }

@@ -1,9 +1,12 @@
 package com.example.paging7.data
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import com.example.paging7.database.ReposDatabase
 import com.example.paging7.model.Repo
-import com.example.paging7.model.RepoSearchResult
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 
 /**
  *
@@ -11,66 +14,24 @@ import kotlinx.coroutines.flow.MutableSharedFlow
  * @author 高超（gaochao.cc）
  * @since 2024/1/17
  */
-class GithubRepository(private val githubService: GithubService) {
+class GithubRepository(private val githubService: GithubService, private val reposDatabase: ReposDatabase) {
 
-    companion object {
-        private const val GITHUB_REPO_SEARCH_STARTING_PAGE_KEY = 1
-        private const val GITHUB_REPO_SEARCH_PAGE_SIZE = 30
-    }
-
-    private val imMemoryCache = mutableListOf<Repo>()
-
-    private val searchResults = MutableSharedFlow<RepoSearchResult>(replay = 1)
-
-    private var lastPageKey = GITHUB_REPO_SEARCH_STARTING_PAGE_KEY
-
-    private var isRequestInProgress = false
-
-    suspend fun getSearchResultFlow(query: String): Flow<RepoSearchResult> {
-        // clear old status.
-        lastPageKey = GITHUB_REPO_SEARCH_STARTING_PAGE_KEY
-        imMemoryCache.clear()
-        requestAndSaveData(query)
-
-        return searchResults
-    }
-
-    suspend fun requestMore(query: String) {
-        if (isRequestInProgress) return
-        val successful = requestAndSaveData(query)
-        if (successful) {
-            lastPageKey++
-        }
-    }
-
-    private suspend fun requestAndSaveData(query: String): Boolean {
-        isRequestInProgress = true
-        var successful = false
-
-        try {
-            val githubRepoSearchResponse =
-                githubService.searchRepos(query, lastPageKey, GITHUB_REPO_SEARCH_PAGE_SIZE)
-
-            val repos = githubRepoSearchResponse.items
-
-            imMemoryCache.addAll(repos)
-
-            searchResults.emit(RepoSearchResult.Success(getReposByNameFromCache(query)))
-            successful = true
-        } catch (e: Exception) {
-            searchResults.emit(RepoSearchResult.Error(e))
-        } finally {
-            isRequestInProgress = false
-        }
-        return successful
-    }
-
-    private fun getReposByNameFromCache(query: String): List<Repo> {
-        return imMemoryCache
-            .filter {
-                it.name.contains(query, false) ||
-                        (it.description?.contains(query, false) ?: false)
-            }
-            .sortedWith(compareByDescending<Repo> { it.stars }.thenBy { it.name })
+    @OptIn(ExperimentalPagingApi::class)
+    fun getSearchResultFlow(query: String): Flow<PagingData<Repo>> {
+        // appending '%' so we can allow other characters to be before and after the query string
+        val dbQuery = "%${query.replace(' ', '%')}%"
+        val pagingSourceFactory =  { reposDatabase.reposDao().getRepoPagingSourceByName(dbQuery)}
+        return Pager(
+            config = PagingConfig(
+                pageSize = GithubRemoteMediator.GITHUB_REPO_SEARCH_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = pagingSourceFactory,
+            remoteMediator = GithubRemoteMediator(
+                query,
+                githubService,
+                reposDatabase
+            )
+        ).flow
     }
 }
