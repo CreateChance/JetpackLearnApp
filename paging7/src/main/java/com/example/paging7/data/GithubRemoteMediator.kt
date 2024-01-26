@@ -1,5 +1,6 @@
 package com.example.paging7.data
 
+import android.util.Log
 import androidx.paging.CombinedLoadStates
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
@@ -33,6 +34,7 @@ class GithubRemoteMediator(
     }
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, Repo>): MediatorResult {
+        Log.d("GAOCHAO", "Load type: $loadType")
         val pageKey = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeysClosestToCurrentPosition(state)
@@ -41,6 +43,7 @@ class GithubRemoteMediator(
 
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
+                Log.d("GAOCHAO", "Load PREPEND, remote key: ${remoteKeys}, prevKeys: ${remoteKeys?.prevKey}")
                 val prevKeys = remoteKeys?.prevKey ?: return MediatorResult.Success(
                     endOfPaginationReached = remoteKeys != null
                 )
